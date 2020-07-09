@@ -1,12 +1,7 @@
 <template>
     <aside class="col-xs-12 col-3">
         <div
-            :class="{
-                [$style.component]: true,
-                [$style.collapsed]: true,
-                'p-3': true,
-                'mb-5': true
-            }"
+            :class="componentClass"
         >
             <div v-if="!collapsed">
                 <h5 class="text-center">
@@ -67,6 +62,17 @@ export default {
                 },
             ],
         };
+    },
+    computed: {
+        componentClass() {
+            const classes = [this.$style.component, 'p-3', 'mb-5'];
+
+            if (this.collapsed) {
+                classes.push(this.$style.collapsed);
+            }
+
+            return classes;
+        },
     },
     created() {
         console.log(this);
