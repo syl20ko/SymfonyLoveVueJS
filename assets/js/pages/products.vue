@@ -3,9 +3,10 @@
         <div class="row">
             <sidebar
                 :collapsed="sidebarCollapsed"
+                :class="asideClass"
                 @toggle-collapsed="toggleSidebarCollapsed"
             />
-            <div class="col-xs-12 col-9">
+            <div :class="contentClass">
                 <Catalog />
             </div>
         </div>
@@ -26,6 +27,14 @@ export default {
         return {
             sidebarCollapsed: false,
         };
+    },
+    computed: {
+        asideClass() {
+            return this.sidebarCollapsed ? 'aside-collapsed' : 'col-xs-12 col-3';
+        },
+        contentClass() {
+            return this.sidebarCollapsed ? 'col-xs-12 col-10' : 'col-xs-12 col-9';
+        },
     },
     methods: {
         toggleSidebarCollapsed() {

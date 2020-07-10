@@ -1,7 +1,7 @@
 <template>
-    <aside class="col-xs-12 col-3">
+    <aside>
         <div
-            :class="componentClass"
+            :class="[$style.component, 'p-3', 'mb-5']"
         >
             <div v-if="!collapsed">
                 <h5 class="text-center">
@@ -62,17 +62,6 @@ export default {
             ],
         };
     },
-    computed: {
-        componentClass() {
-            const classes = [this.$style.component, 'p-3', 'mb-5'];
-
-            if (this.collapsed) {
-                classes.push(this.$style.collapsed);
-            }
-
-            return classes;
-        },
-    },
 };
 </script>
 
@@ -81,10 +70,6 @@ export default {
 
 .component {
   @include light-component;
-
-  &.collapsed{
-      width: 70px;
-  }
 
   ul {
     li a:hover {
