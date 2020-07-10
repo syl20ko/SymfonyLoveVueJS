@@ -27,7 +27,7 @@
             <div class="d-flex justify-content-end">
                 <button
                     class="btn btn-secondary btn-sm"
-                    @click="toggleCollapsed"
+                    @click="$emit('toggle-collapsed')"
                     v-text="collapsed ? '>>' : '<< Collapse'"
                 />
             </div>
@@ -39,14 +39,13 @@
 export default {
     name: 'Sidebar',
     props: {
-        testProp: {
-            type: String,
-            default: 'A am the default value',
+        collapsed: {
+            type: Boolean,
+            require: true,
         },
     },
     data() {
         return {
-            collapsed: false,
             categories: [
                 {
                     name: 'chien',
@@ -72,14 +71,6 @@ export default {
             }
 
             return classes;
-        },
-    },
-    created() {
-        console.log(this);
-    },
-    methods: {
-        toggleCollapsed() {
-            this.collapsed = !this.collapsed;
         },
     },
 };
