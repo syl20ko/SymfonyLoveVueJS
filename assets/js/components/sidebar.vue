@@ -8,14 +8,27 @@
                     Categories
                 </h5>
                 <ul class="nav flex-column mb4">
+                    <li class="nav-item">
+                        <a
+                            :class="{
+                                'nav-link' : true,
+                                'selected' : currentCategoryId == null,
+                            }"
+                            href="/"
+                        >
+                            All Products</a>
+                    </li>
                     <li
-                        v-for="(category, index) in categories"
-                        :key="index"
+                        v-for="(category) in categories"
+                        :key="category['@id']"
                         class="nav-item"
                     >
                         <a
-                            class="nav-link"
-                            :href="category.link"
+                            :class="{
+                                'nav-link': true,
+                                'selected': category['@id'] === currentCategoryId,
+                            }"
+                            :href="`/category/${category.id}`"
                         >
                             {{ category.name }}</a>
                     </li>
@@ -36,6 +49,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'Sidebar',
     props: {
@@ -43,24 +58,20 @@ export default {
             type: Boolean,
             require: true,
         },
+        currentCategoryId: {
+            type: String,
+            default: null,
+        },
     },
     data() {
         return {
-            categories: [
-                {
-                    name: 'chien',
-                    link: 'lol',
-                },
-                {
-                    name: 'chat',
-                    link: '#',
-                },
-                {
-                    name: 'lapin',
-                    link: '#',
-                },
-            ],
+            categories: [],
         };
+    },
+    async created() {
+        const response = await axios.get('/api/categories');
+
+        this.categories = response.data['hydra:member'];
     },
 };
 </script>
@@ -68,12 +79,16 @@ export default {
 <style lang="scss" module>
 @import "~styles/components/light-component";
 
-.component {
+.component :global {
   @include light-component;
 
   ul {
     li a:hover {
       background: $blue-component-link-hover;    }
+
+    li a.selected{
+        background: $light-component-border ;
+    }
   }
 }
 </style>
