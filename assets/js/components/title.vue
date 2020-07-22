@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.component">
-        {{ categoryName }}
+        <h1>{{ categoryName }}</h1>
     </div>
 </template>
 
@@ -34,7 +34,7 @@ export default {
 
 .component {
     h1 {
-        font-size : 4.7rem;
+        font-size : 25px;
     }
 }
 
